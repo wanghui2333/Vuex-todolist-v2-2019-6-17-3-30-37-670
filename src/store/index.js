@@ -47,6 +47,30 @@ export default {
             axios.get(url).then(function(response){
                 context.commit("initTodoList", response.data);
             });
+        },
+        createTodos(context, content) {
+            let data = { content: content, status: "active" };
+            const url = "http://5b4dcb2aec112500143a2311.mockapi.io/api/todos";
+            axios.post(url, data).then(function (response) {
+                context.commit('createTodos', data);
+                console.log("61", response);
+            }).catch(function (error) {
+                console.log(error.response);
+
+            })
+
+        },
+        updateTodos(context, item) {
+            let id = item.id;
+            let data = { content: item.content, status: status };
+            const url = "http://5b4dcb2aec112500143a2311.mockapi.io/api/todos/" + id;
+            axios.put(url, data).then(function (response) {
+                context.commit('toggleActive', item);
+                console.log("73", response);
+            }).catch(function (error) {
+                console.log(error.response);
+
+            })
         }
     }
 }
